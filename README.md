@@ -14,6 +14,11 @@ This example uses the Web Server Gateway Interface (WSGI) with Flask to enable h
 
 ## Running Locally
 
+Run as flask
+``` 
+flask --app api/index run 
+```
+
 ```bash
 npm i -g vercel
 vercel dev
