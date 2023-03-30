@@ -1,7 +1,7 @@
 from flask import Flask
-# from . kraken_data import getTickerInfo
+from . kraken_data import getTickerInfo
 # add . for finding path when using vercel dev
-from kraken_data import getTickerInfo
+# from kraken_data import getTickerInfo
 
 app = Flask(__name__)
 
