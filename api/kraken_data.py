@@ -26,6 +26,25 @@ def getTickerInfo(pair):
     data = resp.json()
     return data['result']
 
+def getOHLCdata():
+    resp = requests.get(base_url + '/OHLC?pair=XBTUSD')
+    data = resp.json()
+    return data['result']
+
+def getOrderBook():
+    resp = requests.get(base_url + '/Depth?pair=XBTUSD')
+    data = resp.json()
+    return data['result']
+
+def getRecentTrades():
+    resp = requests.get(base_url + '/Trades?pair=XBTUSD')
+    data = resp.json()
+    return data['result']
+
+def getRecentSpreads():
+    resp = requests.get(base_url + '/Spread?pair=XBTUSD')
+    data = resp.json()
+    return data['result']
 
 if __name__ == "__main__":
     print(getServerTime())
