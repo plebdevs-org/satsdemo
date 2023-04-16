@@ -17,6 +17,9 @@ def getSystemStatus():
 
 def getAssetPairs(asset):
     resp = requests.get(base_url + "/AssetPairs?pair=" + asset)
+    print('Stay humble stack sats...')
+    print(base_url + "/AssetPairs?pair=" + asset)
+    print('=========================')
     data = resp.json()
     return data['result'][asset]
 
@@ -28,11 +31,15 @@ def getTickerInfo(pair):
 
 def getOHLCdata():
     resp = requests.get(base_url + '/OHLC?pair=XBTUSD')
+    print('getOHLCdata youre inside this method')
+    print(base_url + '/OHLC?pair=XBTUSD')
+    print('======================== so you know your exiting the print statement')
     data = resp.json()
     return data['result']
 
 def getOrderBook():
     resp = requests.get(base_url + '/Depth?pair=XBTUSD')
+    print(base_url + '/Depth?pair=XBTUSD')
     data = resp.json()
     return data['result']
 
@@ -50,15 +57,21 @@ if __name__ == "__main__":
     print(getServerTime())
 
     # Kraken has weird full symbol for BTC/USD as 'XXBTZUSD'
-    info = getAssetPairs('XXBTZUSD')
+    # info = getAssetPairs('XXBTZUSD')
     # print(info)
     
-    ticker = getTickerInfo('XBTUSD')
-    last_trade_closed = ticker['XXBTZUSD']['c']
-    print("Last Trade Closed Price: " + str(last_trade_closed[0]))
+    # ticker = getTickerInfo('XBTUSD')
+    # last_trade_closed = ticker['XXBTZUSD']['c']
+    # print("Last Trade Closed Price: " + str(last_trade_closed[0]))
     
-    ask_price = ticker['XXBTZUSD']['a']
-    print("ask price: " + str(ask_price[0]))
+    # ask_price = ticker['XXBTZUSD']['a']
+    # print("ask price: " + str(ask_price[0]))
 
-    bid_price = ticker['XXBTZUSD']['b']
-    print("bid price: " + str(bid_price[0]))
+    # bid_price = ticker['XXBTZUSD']['b']
+    # print("bid price: " + str(bid_price[0]))
+
+    info = getOHLCdata()
+    print(info)
+
+    info = getOrderBook()
+    print(info)
