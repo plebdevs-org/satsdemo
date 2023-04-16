@@ -39,7 +39,9 @@ def getOHLCdata():
 
 def getOrderBook():
     resp = requests.get(base_url + '/Depth?pair=XBTUSD')
+    print('getOrderBook youre inside this method')
     print(base_url + '/Depth?pair=XBTUSD')
+    print('======================== so you know your exiting the print statement')
     data = resp.json()
     return data['result']
 
@@ -70,8 +72,13 @@ if __name__ == "__main__":
     # bid_price = ticker['XXBTZUSD']['b']
     # print("bid price: " + str(bid_price[0]))
 
-    info = getOHLCdata()
+    #info = getOHLCdata()
+    #print(info)
+
+    #info = getOrderBook()
+    #print(info)
+
+    info = getRecentTrades()
     print(info)
 
-    info = getOrderBook()
-    print(info)
+    
