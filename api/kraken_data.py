@@ -8,38 +8,27 @@ def getServerTime():
     readable_date = data['result']['rfc1123']
     return readable_date
 
+server_time = getServerTime()
+print("Server Time:", server_time)
 
 def getSystemStatus(): 
     resp = requests.get(base_url + '/SystemStatus')
     data = resp.json()
     return data['result']
 
+system_status = getSystemStatus()
+print("System Status:", system_status)
 
 def getAssetPairs(asset):
     resp = requests.get(base_url + "/AssetPairs?pair=" + asset)
+    print('===========================================================================')
+    print(base_url + "/AssetPairs?pair=" + asset)
+    print('===========================================================================')
     data = resp.json()
     return data['result'][asset]
 
-
-def getTickerInfo(pair):
-    resp = requests.get(base_url + '/Ticker?pair='+pair)
-    data = resp.json()
-    return data['result']
-
-
-if __name__ == "__main__":
-    print(getServerTime())
-
-    # Kraken has weird full symbol for BTC/USD as 'XXBTZUSD'
-    info = getAssetPairs('XXBTZUSD')
-    # print(info)
+#Kraken has weird full symbol for BTC/USD as 'XXBTZUSD'
+ 
+info = getAssetPairs('XXBTZUSD')
+print(info)
     
-    ticker = getTickerInfo('XBTUSD')
-    last_trade_closed = ticker['XXBTZUSD']['c']
-    print("Last Trade Closed Price: " + str(last_trade_closed[0]))
-    
-    ask_price = ticker['XXBTZUSD']['a']
-    print("ask price: " + str(ask_price[0]))
-
-    bid_price = ticker['XXBTZUSD']['b']
-    print("bid price: " + str(bid_price[0]))
