@@ -1,7 +1,7 @@
 from flask import Flask
-from . kraken_data import getTickerInfo
+#from . kraken_data import getTickerInfo
 # add . for finding path when using vercel dev
-# from kraken_data import getTickerInfo
+from kraken_data import getTickerInfo
 
 app = Flask(__name__)
 
@@ -29,6 +29,8 @@ def home():
 
 @app.route('/about')
 def about():
-    return 'About'
+    Content='<H1>About</H1>'
+    return Content
+
 
 
