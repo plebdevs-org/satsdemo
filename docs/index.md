@@ -3,9 +3,7 @@
 <img src="https://plebdevs-org.github.io/images/plebdevs.jpg" alt="PlebDevs" width="200" height="200">
 
 
-# Building a Flask Web App with Kraken Data: 
-
-##A Pleb Dev 101 Task
+# Building a Flask Web App with Kraken Data: A Pleb Dev 101 Task
 
 In this tutorial, we will explore how to build a web application using Flask and integrate Kraken data into it. We'll cover importing necessary modules, creating routes, and fetching ticker information from Kraken.
 

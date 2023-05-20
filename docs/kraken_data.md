@@ -2,9 +2,7 @@
 
 
 
-# Integrating Kraken Data into Your Python Application: 
-
-##A Pleb Dev 101 Task
+# Integrating Kraken Data into Your Python Application: A Pleb Dev 101 Task
 
 In this code snippet, we'll explore how to integrate Kraken data into your Python application using the Kraken API. We'll cover retrieving server time, system status, asset pairs information, ticker information, OHLC data, order book data, recent trade data, and recent spread data.
 

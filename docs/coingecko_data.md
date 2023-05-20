@@ -1,9 +1,7 @@
 <img src="https://plebdevs-org.github.io/images/plebdevs.jpg" alt="PlebDevs" width="200" height="200">
 
 
-# Coding Coin Gecko API Public Data: 
-
-##A Pleb Dev 101 Task 
+# Coding Coin Gecko API Public Data: A Pleb Dev 101 Task 
 
 The Coin Gecko API is a powerful tool for accessing bitcoin market data. In this article, we will explore how to utilize the Coin Gecko API to retrieve public data such as current prices and historical prices for Bitcoin (BTC) in various currencies. We will walk through each code snippet and explain its purpose.
 
