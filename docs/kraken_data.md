@@ -1,170 +1,185 @@
-```
+<img src="https://plebdevs-org.github.io/images/plebdevs.jpg" alt="PlebDevs" width="200" height="200">
+
+
+
+# Integrating Kraken Data into Your Python Application: 
+
+##A Pleb Dev 101 Task
+
+In this code snippet, we'll explore how to integrate Kraken data into your Python application using the Kraken API. We'll cover retrieving server time, system status, asset pairs information, ticker information, OHLC data, order book data, recent trade data, and recent spread data.
+
+## Importing Required Modules
+
+First, we import the necessary modules for making HTTP requests and working with JSON data:
+
+```python
 import requests
 import json
+```
 
+The `requests` module allows us to send HTTP requests, while the `json` module provides functions for working with JSON data.
+
+## Setting Up the Base URL
+
+We set the base URL for the Kraken API:
+
+```python
 base_url = 'https://api.kraken.com/0/public'
+```
 
-# Retrieves the server time from the Kraken API
+The base URL will be used as the starting point for all the API endpoints.
+
+## Retrieving Server Time
+
+The `getServerTime()` function retrieves the server time from the Kraken API:
+
+```python
 def getServerTime():
     resp = requests.get(base_url + '/Time')
     data = resp.json()
     readable_date = data['result']['rfc1123']
     return readable_date
+```
 
-# Retrieves the system status from the Kraken API
+This function sends a GET request to the `/Time` endpoint and extracts the server time from the response data. The server time is returned as a readable date string.
+
+## Retrieving System Status
+
+The `getSystemStatus()` function retrieves the system status from the Kraken API:
+
+```python
 def getSystemStatus():
     resp = requests.get(base_url + '/SystemStatus')
     data = resp.json()
     return data['result']
+```
 
-# Retrieves asset pairs information from the Kraken API based on the specified asset
+This function sends a GET request to the `/SystemStatus` endpoint and returns the system status data from the response.
+
+## Retrieving Asset Pairs Information
+
+The `getAssetPairs(asset)` function retrieves asset pairs information from the Kraken API based on the specified asset:
+
+```python
 def getAssetPairs(asset):
-    resp = requests.get(base_url + "/AssetPairs?pair=" + asset)
+    resp = requests.get(base_url + f'/AssetPairs?pair={asset}')
     data = resp.json()
     return data['result'][asset]
+```
 
-# Retrieves ticker information from the Kraken API based on the specified pair
+This function sends a GET request to the `/AssetPairs` endpoint with the specified asset as a query parameter. It returns the asset pairs information for the specified asset from the response.
+
+## Retrieving Ticker Information
+
+The `getTickerInfo(pair)` function retrieves ticker information from the Kraken API based on the specified pair:
+
+```python
 def getTickerInfo(pair):
-    resp = requests.get(base_url + '/Ticker?pair='+pair)
+    resp = requests.get(base_url + f'/Ticker?pair={pair}')
     data = resp.json()
     return data['result']
+```
 
-# Retrieves OHLC (Open, High, Low, Close) data from the Kraken API
+This function sends a GET request to the `/Ticker` endpoint with the specified pair as a query parameter. It returns the ticker information for the specified pair from the response.
+
+## Retrieving OHLC Data
+
+The `getOHLCdata()` function retrieves OHLC (Open, High, Low, Close) data from the Kraken API:
+
+```python
 def getOHLCdata():
     resp = requests.get(base_url + '/OHLC?pair=XBTUSD')
     data = resp.json()
     return data['result']
+```
 
-# Retrieves order book data from the Kraken API
+This function sends a GET request to the `/OHLC` endpoint with the default pair "XBTUSD". It returns the OHLC data from the response.
+
+## Retrieving Order Book Data
+
+The `getOrderBook()` function retrieves order book data from the Kraken API:
+
+```python
 def getOrderBook():
     resp = requests.get(base_url + '/Depth?pair=XBTUSD')
     data = resp.json()
-    return data['result']
+   
 
-# Retrieves recent trade data from the Kraken API
+ return data['result']
+```
+
+This function sends a GET request to the `/Depth` endpoint with the default pair "XBTUSD". It returns the order book data from the response.
+
+## Retrieving Recent Trade Data
+
+The `getRecentTrades()` function retrieves recent trade data from the Kraken API:
+
+```python
 def getRecentTrades():
     resp = requests.get(base_url + '/Trades?pair=XBTUSD')
     data = resp.json()
     return data['result']
+```
 
-# Retrieves recent spread data from the Kraken API
+This function sends a GET request to the `/Trades` endpoint with the default pair "XBTUSD". It returns the recent trade data from the response.
+
+## Retrieving Recent Spread Data
+
+The `getRecentSpreads()` function retrieves recent spread data from the Kraken API:
+
+```python
 def getRecentSpreads():
     resp = requests.get(base_url + '/Spread?pair=XBTUSD')
     data = resp.json()
     return data['result']
+```
 
-# Prints the server time
+This function sends a GET request to the `/Spread` endpoint with the default pair "XBTUSD". It returns the recent spread data from the response.
+
+## Usage Example
+
+Here's an example of how to use the functions and print the retrieved data:
+
+```python
 if __name__ == "__main__":
     print(getServerTime())
 
-# Retrieves and prints asset pairs information for 'XXBTZUSD'
 info = getAssetPairs('XXBTZUSD')
 print(info)
 
-# Retrieves ticker information for 'XBTUSD' and prints the last trade closed price
 ticker = getTickerInfo('XBTUSD')
 last_trade_closed = ticker['XXBTZUSD']['c']
 print("Last Trade Closed Price: " + str(last_trade_closed[0]))
 
-# Retrieves and prints the system status
 system_status = getSystemStatus()
 print("System Status:", system_status)
 
-# Retrieves the ask price from the ticker information and prints it
 ask_price = ticker['XXBTZUSD']['a']
 print("Ask Price: " + str(ask_price[0]))
 
-# Retrieves the bid price from the ticker information and prints it
 bid_price = ticker['XXBTZUSD']['b']
 print("Bid Price: " + str(bid_price[0]))
 
-# Retrieves and prints OHLC data
 info = getOHLCdata()
 print(info)
 
-# Retrieves and prints order book data
 info = getOrderBook()
 print(info)
 
-# Retrieves and prints recent trade data
 info = getRecentTrades()
 print(info)
 ```
 
-Explanation:
+In this usage example, we first print the server time using the `getServerTime()` function. Then, we retrieve asset pairs information for 'XXBTZUSD' and print it. Next, we retrieve ticker information for 'XBTUSD' and print the last trade closed price, system status, ask price, and bid price. After that, we retrieve and print OHLC data, order book data, and recent trade data.
 
-Importing necessary modules:
+##Conclusion
 
-import requests: Imports the requests module, which allows making HTTP requests.
-import json: Imports the json module for working with JSON data.
-Setting the base URL:
+In this code snippet, we have demonstrated how to integrate Kraken data into your Python application using the Kraken API. We covered various functionalities such as retrieving server time, system status, asset pairs information, ticker information, OHLC data, order book data, recent trade data, and recent spread data.
 
-base_url = 'https://api.kraken.com/0/public': Sets the base URL for the Kraken API.
-Defining functions:
+By leveraging the `requests` module, we sent HTTP requests to the Kraken API endpoints and obtained the desired data. The `json` module allowed us to parse the JSON response and extract the required information.
 
-getServerTime(): Sends a GET request to retrieve the server time from the Kraken API and returns the readable date.
+Using the provided functions, you can fetch real-time data from the Kraken exchange and incorporate it into your own projects. This can be particularly useful for building trading bots, analyzing market trends, or creating informative dashboards.
 
-getSystemStatus(): Sends a GET request to retrieve the system status from the Kraken API and returns the data.
+Remember to refer to the official Kraken API documentation for more details on the available endpoints, parameters, and data formats.
 
-getAssetPairs(asset): Sends a GET request to retrieve asset pairs information from the Kraken API based on the specified asset and returns the data.
-
-getTickerInfo(pair): Sends a GET request to retrieve ticker information from the Kraken API based on the specified pair and returns the data.
-
-getOHLCdata(): Sends a GET request to retrieve OHLC (Open, High, Low, Close) data from the Kraken API and returns the data.
-
-getOrderBook(): Sends a GET request to retrieve order book data from the Kraken API and returns the data.
-
-getRecentTrades(): Sends a GET request to retrieve recent trade data from the Kraken API and returns the data.
-
-getRecentSpreads(): Sends a GET request to retrieve recent spread data from the Kraken API and returns the data.
-
-Usage of functions and print statements:
-
-if __name__ == "__main__":: Checks if the script is being executed directly and not imported as a module.
-print(getServerTime()): Calls the getServerTime() function and prints the server time.
-
-info = getAssetPairs('XXBTZUSD'): Calls the getAssetPairs() function with 'XXBTZUSD' as the asset and assigns the returned value to the info variable.
-
-print(info): Prints the asset pairs information.
-
-ticker = getTickerInfo('XBTUSD'): Calls the getTickerInfo() function with 'XBTUSD' as the pair and assigns the returned value to the ticker variable.
-
-last_trade_closed = ticker['XXBTZUSD']['c']: Retrieves the last trade closed price from the ticker information and assigns it to the last_trade_closed variable.
-
-print("Last Trade Closed Price: " + str(last_trade_closed[0])): Prints the last trade closed price.
-
-system_status = getSystemStatus(): Calls the getSystemStatus() function and assigns the returned value to the system_status variable.
-
-print("System Status:", system_status): Prints the system status.
-
-ask_price = ticker['XXBTZUSD']['a']: Retrieves the ask price from the ticker information and assigns it to the ask_price variable.
-
-print("Ask Price: " + str(ask_price[0])): Prints the ask price.
-
-bid_price = ticker['XXBTZUSD']['b']: Retrieves the bid price from the ticker information and assigns it to the bid_price variable.
-
-print("Bid Price: " + str(bid_price[0])): Prints the bid price.
-
-info = getOHLCdata(): Calls the getOHLCdata() function and assigns the returned value to the info variable.
-
-print(info): Prints the OHLC data.
-
-info = getOrderBook(): Calls the getOrderBook() function and assigns the returned value to the info variable.
-
-print(info): Prints the order book data.
-
-info = getRecentTrades(): Calls the getRecentTrades() function and assigns the returned value to the info variable.
-
-print(info): Prints the recent trade data.
-
-Additionally the import json statement is not strictly necessary for the provided code snippet because it is not directly used within the code. However, it is common practice to import the json module when working with JSON data, as it provides useful functions for working with JSON-encoded data.
-
-In this code snippet, the json module is not used directly, but it is indirectly used through the resp.json() method calls. The resp.json() method internally uses the json module to parse the response content and convert it into a Python object.
-
-If you remove the import json statement, the code will still work as long as you keep the resp.json() calls intact. However, it is generally recommended to keep the import json statement for clarity and to indicate the intention of working with JSON data.
-
-
-
-
-
-
+Feel free to customize and expand upon this code snippet based on your specific requirements and use cases.
