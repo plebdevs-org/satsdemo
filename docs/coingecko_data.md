@@ -1,7 +1,8 @@
-<img src="https://plebdevs-org.github.io/images/plebdevs.jpg" alt="PlebDevs" width="200" height="200">
+SatsDemo Document Review **coingecko_data.py**
 
+<img src="https://avatars.githubusercontent.com/u/84297388?s=200&v=4" width="200" height="200">
 
-# Coding Coin Gecko API Public Data: A Pleb Dev 101 Task 
+# Coding Coin Gecko API Public Data
 
 The Coin Gecko API is a powerful tool for accessing bitcoin market data. In this article, we will explore how to utilize the Coin Gecko API to retrieve public data such as current prices and historical prices for Bitcoin (BTC) in various currencies. We will walk through each code snippet and explain its purpose.
 
@@ -134,10 +135,30 @@ else:
 
 In this code snippet, we first calculate the historical date, which is one year back from the current date. We then call the `get_historical_price()` function with the Bitcoin symbol and historical date. If the historical price is successfully retrieved, it is formatted and printed. Otherwise, an error message is displayed.
 
+Python program should render following printed output: 
+
+```
+python3 coingecko_data.py 
+
+API Server Status: API server is up and running.
+
+Current Date: 2023-06-01
+
+Bitcoin Price (USD): $26837
+
+Bitcoin Prices in Other Currencies:
+HKD: $210191
+EUR: €25129
+GBP: £21593
+
+Historical Price of BTC/USD on 2022-06-01: $31627
+```
+
 ## Conclusion
 
 In this article, we have explored the positive experience of coding the Coin Gecko API to retrieve public data. We have covered how to check the server status, retrieve the current price of Bitcoin in different currencies, and fetch the historical price of Bitcoin on a specific date. By leveraging the Coin Gecko API, you can unlock a wealth of public market data for your applications and projects.
 
+**Attribution:** This content, *A Pleb Dev Contribution*, was generated with the assistance of AI using OpenAI's language model.
 
 
 

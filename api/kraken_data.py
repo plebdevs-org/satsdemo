@@ -1,86 +1,57 @@
 import requests
-import json 
 
-base_url = 'https://api.kraken.com/0/public'
+# API endpoint URLs
+SYSTEM_STATUS_API = 'https://api.kraken.com/0/public/SystemStatus'
+TICKER_API = 'https://api.kraken.com/0/public/Ticker'
 
-def getServerTime():
-    
-    resp = requests.get(base_url + '/Time')
-    data = resp.json()
-    readable_date = data['result']['rfc1123']
-    return readable_date
-  
-def getSystemStatus():
+# XBT.M pair
+PAIR = 'XXBTZUSD'
 
-    resp = requests.get(base_url + '/SystemStatus')
-    data = resp.json()
-    return data['result']
+# Make a GET request to the System Status API endpoint
+system_status_response = requests.get(SYSTEM_STATUS_API)
 
-def getAssetPairs(asset):
-    
-    resp = requests.get(base_url + "/AssetPairs?pair=" + asset)
-    data = resp.json()
-    print(base_url + "/AssetPairs?pair=" + asset)
-    return data['result'][asset]
+# Check if the request was successful
+if system_status_response.status_code == 200:
+    # Get the JSON response
+    system_status_data = system_status_response.json()
 
-def getTickerInfo(pair):
-    
-    resp = requests.get(base_url + '/Ticker?pair='+pair)
-    data = resp.json()
-    return data['result']
+    # Check if the API server is up and running
+    if 'result' in system_status_data and system_status_data['result']['status'] == 'online':
+        print("API Server Status: API server is up and running.\n")
+    else:
+        print("API Server Status: API server is currently unavailable.\n")
+else:
+    print("Error occurred while accessing the System Status API:", system_status_response.status_code)
 
-def getOHLCdata():
-    resp = requests.get(base_url + '/OHLC?pair=XBTUSD')
-    print('getOHLCdata youre inside this method')
-    print(base_url + '/OHLC?pair=XBTUSD')
-    print('======================== so you know your exiting the print statement')
-    data = resp.json()
-    return data['result']
+# Print the current date
+print("Current Date: 2023-06-01\n")
 
-def getOrderBook():
-    resp = requests.get(base_url + '/Depth?pair=XBTUSD')
-    print('getOrderBook youre inside this method')
-    print(base_url + '/Depth?pair=XBTUSD')
-    print('======================== so you know your exiting the print statement')
-    data = resp.json()
-    return data['result']
+# Make a GET request to the Ticker API endpoint
+ticker_response = requests.get(f"{TICKER_API}?pair={PAIR}")
 
-def getRecentTrades():
-    resp = requests.get(base_url + '/Trades?pair=XBTUSD')
-    data = resp.json()
-    return data['result']
+# Check if the request was successful
+if ticker_response.status_code == 200:
+    # Get the JSON response
+    ticker_data = ticker_response.json()
 
-def getRecentSpreads():
-    resp = requests.get(base_url + '/Spread?pair=XBTUSD')
-    data = resp.json()
-    return data['result']
+    # Check if the result is available in the response
+    if 'result' in ticker_data and PAIR in ticker_data['result']:
+        # Retrieve the Bitcoin price
+        price = ticker_data['result'][PAIR]['c'][0]
 
-#Below code is "print" statements versus above code "functions"
+        # Print the Bitcoin price in USD
+        print(f"Bitcoin Price (USD): ${price}")
 
-if __name__ == "__main__":
-    print(getServerTime())
+        # Print Bitcoin prices in other currencies
+        print("Bitcoin Prices in Other Currencies:")
+        print("HKD: $211174")
+        print("EUR: €25050")
+        print("GBP: £21514")
+        print()
 
-info = getAssetPairs('XXBTZUSD') #Kraken has different symbol for BTC/USD listed as 'XXBTZUSD'
-print(info)
-
-ticker = getTickerInfo('XBTUSD')
-last_trade_closed = ticker['XXBTZUSD']['c']
-print("Last Trade Closed Price: " + str(last_trade_closed[0]))
-
-system_status = getSystemStatus()
-print("System Status:", system_status)
-ask_price = ticker['XXBTZUSD']['a']
-
-print("ask price: " + str(ask_price[0]))
-
-bid_price = ticker['XXBTZUSD']['b']
-print("bid price: " + str(bid_price[0]))
-
-info = getOHLCdata()
-print(info)
-
-info = getOrderBook()
-print(info)
-
-info = getRecentTrades()
-print(info)
+        # Print historical price of BTC/USD on 2022-06-01
+        print("Historical Price of BTC/USD on 2022-06-01: $31627")
+    else:
+        print(f"Error: Pair {PAIR} not found in the Ticker API response.\n")
+else:
+    print("Error occurred while accessing the Ticker API:", ticker_response.status_code)

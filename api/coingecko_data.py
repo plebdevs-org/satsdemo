@@ -7,7 +7,7 @@ BTC_USD_ID = "bitcoin"
 CURRENCIES = ["usd", "hkd", "eur", "gbp"]
 
 def check_server_status():
-    url = "https://api.coingecko.com/api/v3/ping"
+    url = f"{API_BASE_URL}/ping"
     response = requests.get(url)
     if response.status_code == 200:
         return "API server is up and running."
@@ -39,11 +39,11 @@ def get_historical_price(symbol, date):
 
 # Check API server status
 status = check_server_status()
-print(status)
+print(f"API Server Status: {status}\n")
 
 # Get current date
 current_date = datetime.now().strftime("%Y-%m-%d")
-print(f"\nCurrent Date: {current_date}\n")
+print(f"Current Date: {current_date}\n")
 
 # Get Bitcoin price in USD
 bitcoin_prices = get_price(BTC_USD_ID)
@@ -52,7 +52,7 @@ if bitcoin_prices:
     print(f"Bitcoin Price (USD): ${usd_price}\n")
 
     # Print Bitcoin prices in different currencies
-    print("Bitcoin Prices in other currencies:")
+    print("Bitcoin Prices in Other Currencies:")
     currency_symbols = {"usd": "$", "hkd": "$", "eur": "€", "gbp": "£"}
     for currency in ["hkd", "eur", "gbp"]:
         if currency != "usd":
@@ -61,13 +61,13 @@ if bitcoin_prices:
             print(f"{currency.upper()}: {symbol}{price}")
     print()
 
-# Get historical date (one year back from current date)
+# Get historical date (one year back from the current date)
 historical_date = (datetime.now() - timedelta(days=365)).strftime("%Y-%m-%d")
 
 # Get Bitcoin price on the historical date
 historical_price = get_historical_price(BTC_USD_ID, historical_date)
 if historical_price is not None:
     formatted_historical_price = "{:.0f}".format(historical_price)
-    print(f"\nHistorical Price of BTC/USD on {historical_date}: ${formatted_historical_price}")
+    print(f"Historical Price of BTC/USD on {historical_date}: ${formatted_historical_price}")
 else:
-    print(f"\nUnable to retrieve historical price for BTC/USD on {historical_date}")
+    print(f"Unable to retrieve historical price for BTC/USD on {historical_date}")

@@ -1,8 +1,8 @@
-<img src="https://plebdevs-org.github.io/images/plebdevs.jpg" alt="PlebDevs" width="200" height="200">
+SatsDemo Document Review **kraken_data.py**
 
+<img src="https://avatars.githubusercontent.com/u/84297388?s=200&v=4" width="200" height="200">
 
-
-# Integrating Kraken Data into Your Python Application: A Pleb Dev 101 Task
+# Integrating Kraken Data into Your Python Application
 
 In this code snippet, we'll explore how to integrate Kraken data into your Python application using the Kraken API. We'll cover retrieving server time, system status, asset pairs information, ticker information, OHLC data, order book data, recent trade data, and recent spread data.
 
@@ -181,3 +181,107 @@ Using the provided functions, you can fetch real-time data from the Kraken excha
 Remember to refer to the official Kraken API documentation for more details on the available endpoints, parameters, and data formats.
 
 Feel free to customize and expand upon this code snippet based on your specific requirements and use cases.
+
+**Attribution:** This content, *A Pleb Dev Contribution*, was generated with the assistance of AI using OpenAI's language model.
+
+Reference full python script: 
+
+```
+import requests
+import json
+
+base_url = 'https://api.kraken.com/0/public'
+
+# Function to get the server time
+def getServerTime():
+    resp = requests.get(base_url + '/Time')
+    data = resp.json()
+    readable_date = data['result']['rfc1123']
+    return readable_date
+  
+# Function to get the system status
+def getSystemStatus():
+    resp = requests.get(base_url + '/SystemStatus')
+    data = resp.json()
+    return data['result']
+
+# Function to get the asset pairs
+def getAssetPairs(asset):
+    resp = requests.get(base_url + "/AssetPairs?pair=" + asset)
+    data = resp.json()
+    print(json.dumps(data['result'][asset], indent=4))  # Pretty print the output
+    return data['result'][asset]
+
+# Function to get ticker information
+def getTickerInfo(pair):
+    resp = requests.get(base_url + '/Ticker?pair='+pair)
+    data = resp.json()
+    return data['result']
+
+# Function to get OHLC data
+def getOHLCdata():
+    resp = requests.get(base_url + '/OHLC?pair=XBTUSD')
+    data = resp.json()
+    return data['result']
+
+# Function to get order book
+def getOrderBook():
+    resp = requests.get(base_url + '/Depth?pair=XBTUSD')
+    data = resp.json()
+    return data['result']
+
+# Function to get recent trades
+def getRecentTrades():
+    resp = requests.get(base_url + '/Trades?pair=XBTUSD')
+    data = resp.json()
+    return data['result']
+
+# Function to get recent spreads
+def getRecentSpreads():
+    resp = requests.get(base_url + '/Spread?pair=XBTUSD')
+    data = resp.json()
+    return data['result']
+
+# Print server time
+if __name__ == "__main__":
+    print(getServerTime())
+
+# Get asset pairs and assign the result to info
+info = getAssetPairs('XXBTZUSD')  # Kraken has a different symbol for BTC/USD listed as 'XXBTZUSD'
+print(info)  # Print the information about asset pairs
+
+# Get ticker information and assign the result to ticker
+ticker = getTickerInfo('XBTUSD')
+last_trade_closed = ticker['XXBTZUSD']['c']
+print("Last Trade Closed Price: " + str(last_trade_closed[0]))
+
+# Get system status and assign the result to system_status
+system_status = getSystemStatus()
+print("System Status:", system_status)  # Print the system status
+
+# Get ask price and assign the result to ask_price
+ask_price = ticker['XXBTZUSD']['a']
+print("Ask price: " + str(ask_price[0]))
+
+# Get bid price and assign the result to bid_price
+bid_price = ticker['XXBTZUSD']['b']
+print("Bid price: " + str(bid_price[0]))
+
+# Get OHLC data and assign the result to info
+info = getOHLCdata()
+print(json.dumps(info, indent=4))  # Pretty print the OHLC data
+
+# Get order book and assign the result to info
+info = getOrderBook()
+print(json.dumps(info, indent=4))  # Pretty print the order book
+
+# Get recent trades and assign the result to info
+info = getRecentTrades()
+print(json.dumps(info, indent=4))  # Pretty print the recent trades
+
+```
+In the context of the Kraken API, the asset name "XBT.M" represents Bitcoin. Kraken uses a unique asset naming convention, and "XBT.M" is the symbol they have assigned to Bitcoin.
+
+The "XBT" part of the name is derived from the ISO 4217 currency code for Bitcoin, which is XBT. The ".M" suffix indicates that it represents the main or primary version of the asset. So, "XBT.M" refers to the main version of Bitcoin on the Kraken platform.
+
+When working with the Kraken API, you will find this specific asset name associated with Bitcoin-related trading pairs and other Bitcoin-specific operations.

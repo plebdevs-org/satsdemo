@@ -1,9 +1,8 @@
+SatsDemo Document Review **index.py**
 
+<img src="https://avatars.githubusercontent.com/u/84297388?s=200&v=4" width="200" height="200">
 
-<img src="https://plebdevs-org.github.io/images/plebdevs.jpg" alt="PlebDevs" width="200" height="200">
-
-
-# Building a Flask Web App with Kraken Data: A Pleb Dev 101 Task
+# Building a Flask Web App with Kraken Data
 
 In this tutorial, we will explore how to build a web application using Flask and integrate Kraken data into it. We'll cover importing necessary modules, creating routes, and fetching ticker information from Kraken.
 
@@ -88,3 +87,5 @@ The `@app.route('/about')` decorator indicates that the `about()` function shoul
 ## Conclusion
 
 In this tutorial, we have explored how to build a Flask web application and integrate Kraken data into it. We have covered importing necessary modules, creating routes, and fetching ticker information from Kraken. By following this example, you can extend the application to display more data or add additional functionality as per your requirements.
+
+**Attribution:** This content, *A Pleb Dev Contribution*, was generated with the assistance of AI using OpenAI's language model.
