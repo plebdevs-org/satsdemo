@@ -144,14 +144,14 @@ API Server Status: API server is up and running.
 
 Current Date: 2023-06-01
 
-Bitcoin Price (USD): $26837
+Bitcoin Price (USD): $26,837
 
 Bitcoin Prices in Other Currencies:
-HKD: $210191
-EUR: €25129
-GBP: £21593
+HKD: $210,191
+EUR: €25,129
+GBP: £21,593
 
-Historical Price of BTC/USD on 2022-06-01: $31627
+Historical Price of BTC/USD on 2022-06-01: $31,627
 ```
 
 ## Conclusion
@@ -159,7 +159,3 @@ Historical Price of BTC/USD on 2022-06-01: $31627
 In this article, we have explored the positive experience of coding the Coin Gecko API to retrieve public data. We have covered how to check the server status, retrieve the current price of Bitcoin in different currencies, and fetch the historical price of Bitcoin on a specific date. By leveraging the Coin Gecko API, you can unlock a wealth of public market data for your applications and projects.
 
 **Attribution:** This content, *A Pleb Dev Contribution*, was generated with the assistance of AI using OpenAI's language model.
-
-
-
-

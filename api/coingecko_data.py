@@ -1,10 +1,11 @@
 import requests
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 
 # Constants
 API_BASE_URL = "https://api.coingecko.com/api/v3"
 BTC_USD_ID = "bitcoin"
 CURRENCIES = ["usd", "hkd", "eur", "gbp"]
+COINGECKO_API = 'https://api.coingecko.com/api/v3' #Could not accomplish with Kraken API 
 
 def check_server_status():
     url = f"{API_BASE_URL}/ping"
@@ -37,6 +38,9 @@ def get_historical_price(symbol, date):
             return prices[0][1]
     return None
 
+# Add a print statement with an empty string to create spaces
+print()
+
 # Check API server status
 status = check_server_status()
 print(f"API Server Status: {status}\n")
@@ -49,7 +53,8 @@ print(f"Current Date: {current_date}\n")
 bitcoin_prices = get_price(BTC_USD_ID)
 if bitcoin_prices:
     usd_price = bitcoin_prices.get("usd")
-    print(f"Bitcoin Price (USD): ${usd_price}\n")
+    formatted_usd_price = "{:,.0f}".format(usd_price)
+    print(f"Bitcoin Price (USD): ${formatted_usd_price}\n")
 
     # Print Bitcoin prices in different currencies
     print("Bitcoin Prices in Other Currencies:")
@@ -58,16 +63,21 @@ if bitcoin_prices:
         if currency != "usd":
             price = bitcoin_prices.get(currency)
             symbol = currency_symbols.get(currency)
-            print(f"{currency.upper()}: {symbol}{price}")
+            formatted_price = "{:,.0f}".format(price)
+            print(f"{currency.upper()}: {symbol}{formatted_price}")
     print()
 
-# Get historical date (one year back from the current date)
-historical_date = (datetime.now() - timedelta(days=365)).strftime("%Y-%m-%d")
+# Change the variable name to current_date_str
+current_date_str = date.today().strftime("%Y-%m-%d")
+
+# Calculate historical date (365 days ago from the current date)
+current_date = date.today()  # Use date.today() instead of current_date_str
+historical_date = (current_date - timedelta(days=365)).strftime("%Y-%m-%d")
 
 # Get Bitcoin price on the historical date
 historical_price = get_historical_price(BTC_USD_ID, historical_date)
 if historical_price is not None:
-    formatted_historical_price = "{:.0f}".format(historical_price)
+    formatted_historical_price = "{:,.0f}".format(historical_price)
     print(f"Historical Price of BTC/USD on {historical_date}: ${formatted_historical_price}")
 else:
     print(f"Unable to retrieve historical price for BTC/USD on {historical_date}")
