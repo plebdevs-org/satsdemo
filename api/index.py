@@ -1,36 +1,16 @@
-from flask import Flask
-#from . kraken_data import getTickerInfo
-# add . for finding path when using vercel dev
-from kraken_data import getTickerInfo
+from flask import Flask, jsonify
+from kraken_data import get_data
 
 app = Flask(__name__)
 
-ticker_symbol = 'XBTUSD'
-long_symbol = 'XXBTZUSD'
-
-def last_close_price():
-    ticker = getTickerInfo(ticker_symbol)
-    last_trade_closed = ticker[long_symbol]['c']
-    content = "Last Trade Closed Price: " + str(last_trade_closed[0])
-    return content
-
-
-def last_ask_price():
-    ticker = getTickerInfo(ticker_symbol)
-    last_ask = ticker[long_symbol]['a']
-    content = "Last Ask Price: " + str(last_ask[0])
-    return content
-
-
 @app.route('/')
-def home():
-    return last_ask_price()
+def index():
+    return 'Welcome to the Bitcoin Data API!'
 
+@app.route('/coingecko/price')
+def coingecko_price():
+    data = get_data()
+    return jsonify(data)
 
-@app.route('/about')
-def about():
-    Content='<H1>About</H1>'
-    return Content
-
-
-
+if __name__ == '__main__':
+    app.run()
